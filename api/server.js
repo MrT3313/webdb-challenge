@@ -3,7 +3,7 @@
 
 // ROUTERS
     const projectsRouter = require('./projectsRouter')
-    // const actionsRouter = require('./actionsRouter')
+    const actionsRouter = require('./actionsRouter')
 
 // SERVER
     const server = express()
@@ -16,7 +16,7 @@
 
 // INDIVIDUAL ROUTES
     server.use('/api/projects', projectsRouter)
-    // server.use('/api/actions', actionsRouter)
+    server.use('/api/actions', actionsRouter)
 
 // EXPORTS
     module.exports = server

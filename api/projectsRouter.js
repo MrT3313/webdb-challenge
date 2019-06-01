@@ -8,7 +8,7 @@
     const router = express.Router()
 
 // - GET - //
-    // - A - // Project by ID
+    // - A - // All Projects
     router.get('/', async (req,res) => {
         console.log('projectsRouter GET/')
 
