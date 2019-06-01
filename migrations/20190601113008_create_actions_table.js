@@ -3,8 +3,14 @@ exports.up = function(knex) {
     return knex.schema.createTable('actions', table => {
         table.increments('id')
         table
-            .string('description')
+            .integer('projectID')
+            .references('id').inTable('projects')
+                .onDelete('CASCADE').onUpdate('CASCADE')
+        table
+            .string('name')
             .notNullable()
+        table
+            .string('description')
         table
             .string('notes')
         table
