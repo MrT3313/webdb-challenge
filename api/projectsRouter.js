@@ -9,6 +9,18 @@
 
 // - GET - //
     // - A - // Project by ID
+    router.get('/', async (req,res) => {
+        console.log('projectsRouter GET/')
+
+        DB_KNEX('projects')
+            .then( projects => {
+                res.status(200).json(projects)
+            })
+            .catch( () => {
+                res.status(500).json({ error: `GET/ -> Could not get ALL projects`})
+            })
+    })
+    // - B - // Project by ID
     router.get('/:id', async (req,res) => {
         console.log('projectsRouter GET/:id')
         const { id } = req.params
@@ -23,9 +35,26 @@
             })
     })    
 
-
-
 // - POST - //
+    /* ACCEPTED SHAPE 
+        {
+            "name": STRING,
+            "description": STRING,
+            "completed": BOOLEAN
+        }   
+    */
+    router.post('/', async (req, res) => {
+        DB_KNEX('projects')
+            .insert(req.body)
+                .then( results => {
+                    res.status(201).json(results)
+                })
+                .catch( () => {
+                    res.status(500).json({ error: `POST/ --> Could not INSERT new PROJECT`})
+                })
+                
+    })
+
 // - PUT - //
 // - DELETE - //
 
