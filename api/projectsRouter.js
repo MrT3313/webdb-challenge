@@ -21,18 +21,33 @@
             })
     })
     // - B - // Project by ID
+
+// JOIN --> and return project w/ action 
+
+
     router.get('/:id', async (req,res) => {
         console.log('projectsRouter GET/:id')
         const { id } = req.params
 
+        const FoundProject = await DB_KNEX('projects')
+            .where('id', id)
+            console.log('FOUND PROJECT', FoundProject)
+
+        const FoundActions = await DB_KNEX('actions')
+            .where('projectID', id)
+            console.log('FOUND ACTIONS', FoundActions)
+
+        const objToPass = FoundProject[0]
+        objToPass.actions = FoundActions
+            console.log('OBJECT TasdfvfbanetfdbdcO PASS', objToPass)
+
         DB_KNEX('projects')
-            .where('ID', id)
-            .then( project => {
-                res.status(200).json(project)
-            })
-            .catch( () => {
-                res.status(500).json({ error: `GET/:id -> Could not get PROJECT for ID: ${id}`})
-            })
+            .where('id', id)
+            .then( projects => {
+                res.status(200).json(objToPass)
+            }
+            )
+            .catch()
     })    
 
 // - POST - //
